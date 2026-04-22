@@ -1,0 +1,107 @@
+.why {
+  background: var(--paper-2);
+  position: relative;
+  overflow: hidden;
+}
+
+.why::before {
+  content: '';
+  position: absolute;
+  bottom: -150px; right: -150px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(255, 160, 0, 0.10) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.why__layout {
+  display: grid;
+  grid-template-columns: 0.85fr 1.6fr;
+  gap: 80px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+}
+
+.why__header {
+  position: sticky;
+  top: 120px;
+}
+.why__header h2 { margin: 18px 0 22px; }
+.why__header p { color: var(--ink-700); font-size: 1.04rem; }
+
+.why__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.why__card {
+  background: var(--white);
+  border-radius: var(--r-md);
+  padding: 28px 24px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle gold accent border that appears on hover */
+.why__card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(180deg, var(--gold-500), var(--gold-600));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.why__card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: transparent;
+}
+.why__card:hover::before { transform: scaleY(1); }
+
+.why__icon {
+  width: 52px; height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--green-50);
+  border-radius: 12px;
+  margin-bottom: 18px;
+  transition: background 0.3s ease;
+}
+.why__icon svg {
+  width: 26px; height: 26px;
+  color: var(--green-800);
+  transition: transform 0.3s ease;
+}
+.why__card:hover .why__icon { background: var(--gold-500); }
+.why__card:hover .why__icon svg { color: var(--ink-900); transform: scale(1.1); }
+
+.why__card h3 {
+  font-size: 1.12rem;
+  margin-bottom: 10px;
+  color: var(--ink-900);
+}
+.why__card p {
+  font-size: 0.92rem;
+  color: var(--ink-700);
+  line-height: 1.55;
+}
+
+.why__card--skeleton {
+  background: var(--white);
+  min-height: 200px;
+  opacity: 0.4;
+}
+
+@media (max-width: 980px) {
+  .why__layout { grid-template-columns: 1fr; gap: 50px; }
+  .why__header { position: static; }
+  .why__grid { grid-template-columns: 1fr; }
+}
