@@ -1,60 +1,72 @@
-import { useEffect, useState } from 'react';
-import Navbar from './components/Navbar.jsx';
-import Hero from './components/Hero.jsx';
-import About from './components/About.jsx';
-import Products from './components/Products.jsx';
-import Process from './components/Process.jsx';
-import WhyChooseUs from './components/WhyChooseUs.jsx';
-import GlobalReach from './components/GlobalReach.jsx';
-import Contact from './components/Contact.jsx';
-import Footer from './components/Footer.jsx';
-import QuoteModal from './components/QuoteModal.jsx';
+import { useEffect, useState } from 'react'
+import { Routes, Route, useLocation } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Footer from './components/Footer'
+import QuoteModal from './components/QuoteModal'
+import Home from './pages/Home'
+import About from './pages/About'
+import Products from './pages/Products'
+import Process from './pages/Process'
+import GlobalReach from './pages/GlobalReach'
+import Contact from './pages/Contact'
 
 export default function App() {
-  const [company, setCompany] = useState(null);
-  const [products, setProducts] = useState([]);
-  const [quoteOpen, setQuoteOpen] = useState(false);
-  const [presetProductId, setPresetProductId] = useState(null);
+  const [scrollPct, setScrollPct] = useState(0)
+  const [quoteOpen, setQuoteOpen] = useState(false)
+  const [presetProduct, setPresetProduct] = useState(null)
+  const { pathname } = useLocation()
 
-  // Pull company + product data from the Node backend on mount.
+  // Scroll to top on page change
+  useEffect(() => { window.scrollTo(0, 0) }, [pathname])
+
+  // Scroll progress bar
   useEffect(() => {
-    fetch('/api/company')
-      .then((r) => r.json())
-      .then((d) => d.ok && setCompany(d.company))
-      .catch(() => {});
+    const onScroll = () => {
+      const h = document.documentElement
+      setScrollPct((h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
-    fetch('/api/products')
-      .then((r) => r.json())
-      .then((d) => d.ok && setProducts(d.products))
-      .catch(() => {});
-  }, []);
-
-  function openQuote(productId = null) {
-    setPresetProductId(productId);
-    setQuoteOpen(true);
+  function openQuote(product = null) {
+    setPresetProduct(product)
+    setQuoteOpen(true)
   }
 
   return (
     <>
+      {/* Scroll progress bar */}
+      <div
+        className="fixed top-0 left-0 h-[3px] z-[9999] pointer-events-none"
+        style={{
+          width: `${scrollPct}%`,
+          background: 'linear-gradient(90deg,#c8920a,#2d6e47)',
+          transition: 'width 0.05s linear',
+        }}
+      />
+
       <Navbar onOpenQuote={() => openQuote()} />
+
       <main>
-        <Hero onOpenQuote={() => openQuote()} />
-        <About company={company} />
-        <Products products={products} onEnquire={openQuote} />
-        <Process steps={company?.process} />
-        <WhyChooseUs items={company?.whyChooseUs} />
-        <GlobalReach markets={company?.exportMarkets} />
-        <Contact company={company} products={products} />
+        <Routes>
+          <Route path="/"        element={<Home    onOpenQuote={openQuote} />} />
+          <Route path="/about"   element={<About />} />
+          <Route path="/products" element={<Products onOpenQuote={openQuote} />} />
+          <Route path="/process" element={<Process />} />
+          <Route path="/reach"   element={<GlobalReach />} />
+          <Route path="/contact" element={<Contact />} />
+        </Routes>
       </main>
-      <Footer company={company} />
+
+      <Footer />
 
       {quoteOpen && (
         <QuoteModal
-          products={products}
-          presetProductId={presetProductId}
+          presetProduct={presetProduct}
           onClose={() => setQuoteOpen(false)}
         />
       )}
     </>
-  );
+  )
 }
