@@ -122,8 +122,8 @@ export default function Contact() {
               {
                 icon: 'M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z M22 6l-10 7L2 6',
                 title: 'Email',
-                val: 'info@sahyadriagro.com',
-                href: 'mailto:info@sahyadriagro.com',
+val: 'Admin@sahyadriagro.net',
+                href: 'mailto:Admin@sahyadriagro.net',
               },
               {
                 icon: 'M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z M12 13a3 3 0 100-6 3 3 0 000 6z',

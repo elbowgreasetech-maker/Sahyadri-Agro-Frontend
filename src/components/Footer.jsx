@@ -69,7 +69,7 @@ export default function Footer() {
           <div>
             <h4 className="font-serif text-white font-semibold mb-4">Get in Touch</h4>
             <a href="tel:+919800000000" className="block text-white/50 text-sm mb-2 hover:text-gold-400 no-underline transition-colors">+91 98XX-XXXXXX</a>
-            <a href="mailto:info@sahyadriagro.com" className="block text-white/50 text-sm mb-2 hover:text-gold-400 no-underline transition-colors">info@sahyadriagro.com</a>
+            <a href="mailto:Admin@sahyadriagro.net" className="block text-white/50 text-sm mb-2 hover:text-gold-400 no-underline transition-colors">Admin@sahyadriagro.net</a>
             <Link to="/contact" className="block text-white/50 text-sm mb-2 hover:text-gold-400 no-underline transition-colors">Request a quote</Link>
             <p className="text-white/30 text-xs mt-4 leading-relaxed">
               Plot 24, MIDC Industrial Area<br />
