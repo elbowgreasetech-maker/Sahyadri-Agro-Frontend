@@ -22,13 +22,13 @@ export default function Hero({ onOpenQuote }) {
         <div className="hero__copy">
           <span className="eyebrow reveal reveal-1">Sahyadri Agro India Pvt. Ltd.</span>
 
-          <h1 className="hero__title reveal reveal-2">
-            Premium Indian
-            <span className="hero__title-accent"> Rice, Cashews </span>
-            <span className="hero__title-amp">&amp;</span>
-            <span className="hero__title-accent"> Almonds </span>
-            Exported Worldwide
-          </h1>
+        <h1 className="hero__title reveal reveal-2">
+  Premium Indian
+  <span className="hero__title-accent"> Rice, Cashews, Almonds </span>
+  &amp;
+  <span className="hero__title-accent"> Black Pepper </span>
+  Exported Worldwide
+</h1>
 
           <p className="hero__subtitle reveal reveal-3">
             Processed, polished, and quality-checked for global standards — from the
@@ -75,6 +75,14 @@ export default function Hero({ onOpenQuote }) {
               <strong>Almonds</strong>
             </div>
           </div>
+
+    <div className="hero__card hero__card--3">
+  <div className="hero__card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=600&q=80')" }} />
+  <div className="hero__card-label">
+    <span>04</span>
+    <strong>Black Pepper</strong>
+  </div>
+</div>
 
           <div className="hero__badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

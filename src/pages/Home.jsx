@@ -1,239 +1,552 @@
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { useReveal } from '../hooks/useReveal'
 import BackToTop from '../components/BackToTop'
-
-export default function Home({ onOpenQuote }) {
-  useReveal([])
-  const heroBgRef = useRef(null)
-
-  // Parallax
-  useEffect(() => {
-    const fn = () => {
-      if (heroBgRef.current && window.scrollY < window.innerHeight) {
-        heroBgRef.current.style.transform = `translateY(${window.scrollY * 0.4}px)`
-      }
-    }
-    window.addEventListener('scroll', fn, { passive: true })
-    return () => window.removeEventListener('scroll', fn)
-  }, [])
-
-  // Floating particles
-  useEffect(() => {
-    const container = document.getElementById('hero-particles')
-    if (!container) return
-    for (let i = 0; i < 20; i++) {
-      const p = document.createElement('div')
-      p.style.cssText = `
-        position:absolute;width:3px;height:3px;background:#e8a20c;border-radius:50%;opacity:0;
-        left:${Math.random() * 55}%;bottom:${Math.random() * 40}%;
-        animation:heroParticle ${6 + Math.random() * 8}s ${Math.random() * 6}s infinite ease-in-out;
-      `
-      container.appendChild(p)
-    }
-  }, [])
-
-  // Hero stagger on load
-  useEffect(() => {
-    document.querySelectorAll('.hero-reveal').forEach((el, i) => {
-      setTimeout(() => el.classList.add('revealed'), 300 + i * 160)
-    })
-  }, [])
-
-  return (
-    <>
-      <style>{`
-        @keyframes heroParticle {
-          0%   { opacity:0; transform:translateY(0) scale(1); }
-          20%  { opacity:.6; }
-          80%  { opacity:.3; }
-          100% { opacity:0; transform:translateY(-130px) scale(.3); }
-        }
-      `}</style>
-
-      {/* ── HERO ── */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
-        <div className="absolute inset-0">
-          <div
-            ref={heroBgRef}
-            className="absolute inset-0 bg-cover bg-[center_30%]"
-            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1800&q=85')", willChange: 'transform' }}
-          />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(105deg,rgba(18,35,26,.88) 0%,rgba(18,35,26,.6) 55%,rgba(18,35,26,.2) 100%)' }} />
-          <div id="hero-particles" className="absolute inset-0 overflow-hidden pointer-events-none" />
-        </div>
-
-        <div className="section-wrap relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center py-16">
-          {/* Copy */}
-          <div>
-            <span className="hero-reveal reveal reveal-up inline-block text-xs font-semibold tracking-widest uppercase text-gold-400 border border-gold-400/40 bg-gold-400/15 px-3 py-1 rounded-full mb-5">
-              Sahyadri Agro India Pvt. Ltd.
-            </span>
-            <h1 className="hero-reveal reveal reveal-up font-serif font-bold text-white leading-tight mb-5" style={{ fontSize: 'clamp(2.2rem,4.5vw,3.6rem)' }}>
-              Premium Indian{' '}
-              <span className="text-gold-400">Rice, Cashews</span>
-              {' '}&amp;{' '}
-              <span className="text-gold-400">Almonds</span>{' '}
-              Exported Worldwide
-            </h1>
-            <p className="hero-reveal reveal reveal-up text-white/75 text-lg mb-8 max-w-[50ch]">
-              Processed, polished, and quality-checked for global standards — from the fields of India to ports across the Middle East, Europe, and Asia.
-            </p>
-            <div className="hero-reveal reveal reveal-up flex flex-wrap gap-3 mb-10">
-              <button
-                onClick={() => onOpenQuote()}
-                className="flex items-center gap-2 px-6 py-3 bg-gold-500 text-ink font-semibold rounded hover:bg-gold-400 transition-colors"
-              >
-                Get Quote
-                <Arrow />
-              </button>
-              <Link to="/contact" className="flex items-center gap-2 px-6 py-3 border border-white/40 text-white font-medium rounded hover:bg-white/10 transition-colors no-underline">
-                Contact Us
-              </Link>
-            </div>
-            <div className="hero-reveal reveal reveal-up flex flex-wrap gap-8">
-              {[['25+','Export markets'],['200 MT','Monthly capacity'],['100%','APEDA certified']].map(([n,l]) => (
-                <div key={l}>
-                  <strong className="block font-serif text-[1.9rem] text-white leading-none">{n}</strong>
-                  <span className="text-xs text-white/60 uppercase tracking-wider">{l}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Floating cards */}
-          <div className="hidden lg:block relative h-[440px]">
-            {[
-              { cls:'animate-card-float-1', style:{width:'62%',height:'66%',top:0,right:0}, img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80', n:'01', t:'Premium Rice' },
-              { cls:'animate-card-float-2', style:{width:'52%',height:'54%',bottom:'10%',left:0}, img:'https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=600&q=80', n:'02', t:'Whole Cashews' },
-              { cls:'animate-card-float-3', style:{width:'42%',height:'40%',bottom:0,right:'8%'}, img:'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=600&q=80', n:'03', t:'Almonds' },
-            ].map(({ cls, style, img, n, t }) => (
-              <div key={n} className={`absolute rounded-xl overflow-hidden border-2 border-white/15 shadow-2xl ${cls}`} style={style}>
-                <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url('${img}')` }} />
-                <div className="absolute bottom-0 left-0 right-0 p-3 flex items-center gap-2" style={{ background: 'linear-gradient(0deg,rgba(0,0,0,.75),transparent)' }}>
-                  <span className="text-gold-400 text-[.68rem] font-semibold">{n}</span>
-                  <strong className="text-white text-sm font-serif">{t}</strong>
-                </div>
-              </div>
-            ))}
-            {/* Badge */}
-            <div className="absolute top-[10%] -left-[5%] bg-cream/95 backdrop-blur-sm rounded-xl p-3 flex items-center gap-3 shadow-xl z-10">
-              <svg viewBox="0 0 24 24" className="w-8 h-8 stroke-forest-600 fill-none flex-shrink-0" strokeWidth="2">
-                <path d="M9 12l2 2 4-4M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              <div>
-                <strong className="block text-sm text-ink font-serif">FSSAI · APEDA</strong>
-                <span className="text-xs text-ink-muted">Export-grade quality</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll hint */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-70 z-10">
-          <div className="w-[22px] h-[34px] border-2 border-white/60 rounded-xl relative">
-            <div className="scroll-wheel" />
-          </div>
-          <span className="text-[.7rem] tracking-widest uppercase text-white">Scroll</span>
-        </div>
-      </section>
-
-      {/* ── GOLD DIVIDER ── */}
-      <div className="gold-divider" />
-
-      {/* ── HIGHLIGHTS STRIP ── */}
-      <section className="bg-white py-14">
-        <div className="section-wrap grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { icon:'M9 12l2 2 4-4M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z', title:'FSSAI & APEDA', sub:'Certified exporter' },
-            { icon:'M3 6h11v9h-1.5a2.5 2.5 0 11-5 0H6a2.5 2.5 0 11-3-2.5V6zm12 3h3l3 3v3.5a2.5 2.5 0 11-5 0H15V9z', title:'FOB / CIF Worldwide', sub:'Global shipping' },
-            { icon:'M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16', title:'200 MT / Month', sub:'Processing capacity' },
-            { icon:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', title:'ISO 22000 · HACCP', sub:'Quality assured' },
-          ].map(({ icon, title, sub }, i) => (
-            <div
-              key={title}
-              data-reveal className={`reveal reveal-up delay-${i+1} flex flex-col items-center text-center p-5 rounded-xl bg-cream border border-cream-dark`}
-            >
-              <div className="w-12 h-12 rounded-full bg-forest-50 flex items-center justify-center mb-3">
-                <svg viewBox="0 0 24 24" className="w-6 h-6 stroke-forest-600 fill-none" strokeWidth="1.8">
-                  <path d={icon} strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </div>
-              <strong className="font-serif text-ink text-[.95rem] block mb-1">{title}</strong>
-              <span className="text-xs text-ink-muted">{sub}</span>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── PRODUCTS PREVIEW ── */}
-      <section className="py-20 bg-cream">
-        <div className="section-wrap">
-          <div className="text-center mb-12">
-            <span className="eyebrow" data-reveal data-reveal-class="reveal reveal-up">Our Catalog</span>
-            <h2 className="font-serif text-ink mb-3" data-reveal data-reveal-class="reveal reveal-up delay-1">Three product lines.<br/>One uncompromising standard.</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7">
-            {PRODUCTS_DATA.map(({ id, name, tagline, img, moq }, i) => (
-              <article
-                key={id}
-                data-reveal
-                className={`reveal reveal-up delay-${i+1} bg-white rounded-2xl overflow-hidden border border-cream-dark card-lift`}
-              >
-                <div className="h-52 overflow-hidden relative">
-                  <img src={img} alt={name} className="w-full h-full object-cover transition-transform duration-700 hover:scale-110" loading="lazy"/>
-                  <div className="absolute top-3 left-3 bg-forest-600/85 text-white text-xs font-semibold tracking-wide px-3 py-1 rounded-full">{tagline}</div>
-                </div>
-                <div className="p-5">
-                  <h3 className="font-serif text-ink mb-2">{name}</h3>
-                  <p className="text-xs text-ink-muted mb-4">MOQ: {moq}</p>
-                  <button onClick={() => onOpenQuote(id)} className="w-full py-2.5 bg-forest-600 text-white text-sm font-medium rounded-lg hover:bg-forest-500 transition-colors flex items-center justify-center gap-2">
-                    Enquire Now <Arrow />
-                  </button>
-                </div>
-              </article>
-            ))}
-          </div>
-          <div className="text-center mt-10" data-reveal>
-            <Link to="/products" className="reveal reveal-up inline-flex items-center gap-2 px-6 py-3 border-2 border-forest-600 text-forest-600 font-medium rounded hover:bg-forest-600 hover:text-white transition-colors no-underline">
-              View Full Catalog <Arrow cls="stroke-current" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── CTA BANNER ── */}
-      <section className="bg-forest-600 py-20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1200&q=60')", backgroundSize: 'cover' }} />
-        <div className="section-wrap relative text-center">
-          <span className="eyebrow text-gold-400 border border-gold-400/40 bg-gold-400/10" data-reveal>Ready to Source?</span>
-          <h2 className="font-serif text-white text-3xl md:text-4xl mb-4" data-reveal>Start your export enquiry today.</h2>
-          <p className="text-white/70 mb-8 mx-auto max-w-xl" data-reveal>We respond to every RFQ within 24 hours with a competitive quotation and full export documentation overview.</p>
-          <div className="flex flex-wrap gap-4 justify-center" data-reveal>
-            <button onClick={() => onOpenQuote()} className="px-8 py-3 bg-gold-500 text-ink font-semibold rounded hover:bg-gold-400 transition-colors flex items-center gap-2">
-              Get a Quote <Arrow />
-            </button>
-            <Link to="/contact" className="px-8 py-3 border border-white/40 text-white font-medium rounded hover:bg-white/10 transition-colors no-underline flex items-center gap-2">
-              Contact Us
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <BackToTop />
-    </>
-  )
-}
 
 const PRODUCTS_DATA = [
   { id:'rice',    name:'Premium Indian Rice',    tagline:'Basmati & Non-Basmati', img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80', moq:'1 × 20ft FCL (~25 MT)' },
   { id:'cashews', name:'Whole Cashew Kernels',   tagline:'W180, W240, W320',      img:'https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=600&q=80', moq:'1 MT' },
   { id:'almonds', name:'Premium Almonds',        tagline:'California & Mamra',    img:'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=600&q=80', moq:'500 kg' },
+  { id:'black-pepper', name:'Black Pepper',      tagline:'Malabar & Tellicherry', img:'https://images.unsplash.com/photo-1599909533731-f4438f27a39c?w=600&q=80', moq:'500 kg' },
 ]
 
-function Arrow({ cls = 'stroke-white' }) {
+export default function Home({ onOpenQuote }) {
+  const heroBgRef = useRef(null)
+  const heroRef = useRef(null)
+  const statsRef = useRef(null)
+  const productGridRef = useRef(null)
+
+  useEffect(() => {
+    // Always set up parallax scroll (no GSAP needed)
+    const onScroll = () => {
+      if (heroBgRef.current && window.scrollY < window.innerHeight) {
+        heroBgRef.current.style.transform = `translateY(${window.scrollY * 0.35}px)`
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    // Load GSAP for enhancement only — content is visible by default
+    if (window.gsap) { initGSAP(); }
+    else {
+      const s = document.createElement('script')
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'
+      s.onerror = () => {} // fail silently, content still visible
+      s.onload = () => {
+        const st = document.createElement('script')
+        st.src = 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'
+        st.onerror = () => initGSAP() // run without ScrollTrigger if it fails
+        st.onload = initGSAP
+        document.head.appendChild(st)
+      }
+      document.head.appendChild(s)
+    }
+
+    function initGSAP() {
+      const { gsap } = window
+      const ST = window.ScrollTrigger
+      if (ST) gsap.registerPlugin(ST)
+
+      // Use fromTo so the "from" state is applied intentionally, not left hanging
+      if (heroRef.current) {
+        const heroItems = ['.h-badge', '.h-title', '.h-sub', '.h-ctas']
+        heroItems.forEach((sel, i) => {
+          gsap.fromTo(sel,
+            { y: 30 + i * 10, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, delay: 0.15 + i * 0.15, ease: 'power3.out' }
+          )
+        })
+        gsap.fromTo('.h-stats > *',
+          { y: 20, opacity: 0 },
+          { y: 0, opacity: 1, stagger: 0.1, duration: 0.6, delay: 0.7, ease: 'power3.out' }
+        )
+        gsap.fromTo('.h-card',
+          { y: 50, opacity: 0 },
+          { y: 0, opacity: 1, stagger: 0.12, duration: 0.9, delay: 0.3, ease: 'back.out(1.2)' }
+        )
+        gsap.fromTo('.h-badge-cert',
+          { scale: 0.85, opacity: 0 },
+          { scale: 1, opacity: 1, duration: 0.5, delay: 0.8, ease: 'back.out(1.5)' }
+        )
+      }
+
+      // Stat counters on scroll
+      if (statsRef.current && ST) {
+        statsRef.current.querySelectorAll('.stat-num').forEach(el => {
+          const orig = el.textContent
+          const target = parseFloat(el.dataset.target)
+          gsap.fromTo({ val: 0 }, { val: 0 }, {
+            scrollTrigger: { trigger: el, start: 'top 85%', once: true },
+            val: target, duration: 2, ease: 'power2.out',
+            onUpdate() { el.textContent = Math.round(this.targets()[0].val) + (orig.includes('+') ? '+' : orig.includes('%') ? '%' : ' MT') },
+            onComplete() { el.textContent = orig }
+          })
+        })
+      }
+
+      // Product cards scroll reveal
+      if (productGridRef.current && ST) {
+        gsap.fromTo(
+          productGridRef.current.querySelectorAll('.prod-preview-card'),
+          { y: 40, opacity: 0 },
+          { y: 0, opacity: 1, stagger: 0.1, duration: 0.7, ease: 'power3.out',
+            scrollTrigger: { trigger: productGridRef.current, start: 'top 82%', once: true }
+          }
+        )
+      }
+    }
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      if (window.ScrollTrigger) window.ScrollTrigger.getAll().forEach(t => t.kill())
+    }
+  }, [])
+
   return (
-    <svg viewBox="0 0 24 24" className={`w-4 h-4 fill-none ${cls}`} strokeWidth="2.5">
+    <>
+      <style>{`
+        @keyframes floatA { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        @keyframes floatB { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+        @keyframes floatC { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-13px)} }
+        @keyframes pulseGlow {
+          0%,100% { box-shadow: 0 0 0 0 rgba(232,162,12,0); }
+          50%      { box-shadow: 0 0 0 14px rgba(232,162,12,0); }
+        }
+        @keyframes scrollWheel {
+          0%   { opacity:1; transform:translateY(0); }
+          100% { opacity:0; transform:translateY(10px); }
+        }
+        @keyframes particleFloat {
+          0%   { opacity:0; transform:translateY(0) scale(1); }
+          20%  { opacity:.7; }
+          80%  { opacity:.3; }
+          100% { opacity:0; transform:translateY(-120px) scale(.3); }
+        }
+        .h-card:nth-child(1) { animation: floatA 6s ease-in-out infinite; }
+        .h-card:nth-child(2) { animation: floatB 7.5s ease-in-out infinite 1s; }
+        .h-card:nth-child(3) { animation: floatC 8s ease-in-out infinite 2s; }
+        .prod-preview-card:hover .ppc-img img { transform: scale(1.08); }
+        .highlights-strip__item { transition: transform .25s, box-shadow .25s; }
+        .highlights-strip__item:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(27,94,32,.12); }
+      `}</style>
+
+      {/* ══ HERO ══ */}
+      <section ref={heroRef} className="home-hero">
+        {/* Background */}
+        <div className="home-hero__bg-wrap">
+          <div
+            ref={heroBgRef}
+            className="home-hero__bg-img"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=1800&q=85')" }}
+          />
+          <div className="home-hero__bg-grad" />
+          {/* SVG decorative overlay */}
+          <svg className="home-hero__bg-svg" viewBox="0 0 1400 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <radialGradient id="heroGlow" cx="0.82" cy="0.2" r="0.45">
+                <stop offset="0" stopColor="#e8a20c" stopOpacity="0.35"/>
+                <stop offset="1" stopColor="#e8a20c" stopOpacity="0"/>
+              </radialGradient>
+            </defs>
+            <rect width="1400" height="800" fill="url(#heroGlow)"/>
+            {/* Grid lines */}
+            {[200,400,600,800,1000,1200].map((x,i) => (
+              <line key={i} x1={x} y1="0" x2={x} y2="800" stroke="#ffffff" strokeWidth="0.5" strokeOpacity="0.04"/>
+            ))}
+            {[160,320,480,640].map((y,i) => (
+              <line key={i} x1="0" y1={y} x2="1400" y2={y} stroke="#ffffff" strokeWidth="0.5" strokeOpacity="0.04"/>
+            ))}
+          </svg>
+          <div id="hero-particles" className="home-hero__particles" />
+        </div>
+
+        <div className="section-wrap home-hero__inner">
+          {/* Copy */}
+          <div className="home-hero__copy">
+            <span className="h-badge home-hero__eyebrow">
+              Sahyadri Agro India Pvt. Ltd.
+            </span>
+            <h1 className="h-title home-hero__title">
+              Premium Indian{' '}
+              <span className="home-hero__accent">Rice, Cashews, Almonds</span>
+              {' '}& <span className="home-hero__accent">Black Pepper</span>{' '}
+              Exported Worldwide
+            </h1>
+            <p className="h-sub home-hero__sub">
+              Processed, polished, and quality-checked for global standards — from the fields of India to ports across the Middle East, Europe, and Asia.
+            </p>
+            <div className="h-ctas home-hero__ctas">
+              <button onClick={() => onOpenQuote()} className="home-hero__btn-primary">
+                Get Quote
+                <ArrowIcon />
+              </button>
+              <Link to="/contact" className="home-hero__btn-secondary">Contact Us</Link>
+            </div>
+            <div className="h-stats home-hero__stats">
+              {[['25', '25+', 'Export markets'], ['200', '200 MT', 'Monthly capacity'], ['100', '100%', 'APEDA certified']].map(([raw, label, sub]) => (
+                <div key={sub} className="home-hero__stat">
+                  <strong className="stat-num" data-target={raw}>{label}</strong>
+                  <span>{sub}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Card stack */}
+          <div className="home-hero__visual" aria-hidden="true">
+            {[
+              { pos: { width:'60%',height:'62%',top:'2%',right:'0' }, img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80', n:'01', t:'Premium Rice' },
+              { pos: { width:'52%',height:'54%',bottom:'12%',left:'0' }, img:'https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=600&q=80', n:'02', t:'Whole Cashews' },
+              { pos: { width:'42%',height:'38%',bottom:0,right:'6%' }, img:'https://images.unsplash.com/photo-1599909533731-f4438f27a39c?w=600&q=80', n:'04', t:'Black Pepper' },
+            ].map(({ pos, img, n, t }) => (
+              <div key={n} className="h-card home-hero__card" style={pos}>
+                <div className="home-hero__card-img" style={{ backgroundImage: `url('${img}')` }} />
+                <div className="home-hero__card-label">
+                  <span>{n}</span>
+                  <strong>{t}</strong>
+                </div>
+              </div>
+            ))}
+            <div className="h-badge-cert home-hero__cert-badge">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#2d6e47" strokeWidth="2" width="28" height="28">
+                <path d="M9 12l2 2 4-4M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              <div>
+                <strong>FSSAI · APEDA</strong>
+                <span>Export-grade quality</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div className="home-hero__scroll-hint">
+          <div className="home-hero__scroll-mouse">
+            <div className="home-hero__scroll-wheel" />
+          </div>
+          <span>Scroll</span>
+        </div>
+      </section>
+
+      {/* ══ GOLD DIVIDER ══ */}
+      <div style={{ height: 5, background: 'linear-gradient(to right,#2d6e47,#e8a20c,#2d6e47)' }} />
+
+      {/* ══ HIGHLIGHTS STRIP ══ */}
+      <section ref={statsRef} className="highlights-strip">
+        <div className="section-wrap highlights-strip__grid">
+          {[
+            { icon:'M9 12l2 2 4-4M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z', title:'FSSAI & APEDA', sub:'Certified exporter', color:'#2d6e47' },
+            { icon:'M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z M12 13a3 3 0 100-6 3 3 0 000 6z', title:'FOB / CIF Worldwide', sub:'Global shipping', color:'#c8920a' },
+            { icon:'M20 7H4a2 2 0 00-2 2v6a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2z', title:'200 MT / Month', sub:'Processing capacity', color:'#2d6e47' },
+            { icon:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z', title:'ISO 22000 · HACCP', sub:'Quality assured', color:'#c8920a' },
+          ].map(({ icon, title, sub, color }) => (
+            <div key={title} className="highlights-strip__item">
+              <div className="highlights-strip__icon" style={{ background: color + '14', color }}>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="22" height="22">
+                  <path d={icon} strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <strong>{title}</strong>
+              <span>{sub}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ══ PRODUCTS PREVIEW ══ */}
+      <section className="home-products">
+        <div className="section-wrap">
+          <div className="home-products__header">
+            <span className="home-eyebrow">Our Catalog</span>
+            <h2 className="home-products__title">Four product lines.<br/>One uncompromising standard.</h2>
+          </div>
+          <div className="home-products__grid" ref={productGridRef}>
+            {PRODUCTS_DATA.map(({ id, name, tagline, img, moq }) => (
+              <article key={id} className="prod-preview-card">
+                <div className="ppc-img">
+                  <img src={img} alt={name} loading="lazy"/>
+                  <div className="ppc-tag">{tagline}</div>
+                </div>
+                <div className="ppc-body">
+                  <h3>{name}</h3>
+                  <p>MOQ: {moq}</p>
+                  <button onClick={() => onOpenQuote(id)} className="ppc-btn">
+                    Enquire Now <ArrowIcon />
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="home-products__more">
+            <Link to="/products" className="home-products__more-btn">
+              View Full Catalog <ArrowIcon cls="#2d6e47" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ══ CTA BANNER ══ */}
+      <section className="home-cta">
+        <div className="home-cta__bg" />
+        <div className="section-wrap home-cta__inner">
+          <span className="home-eyebrow home-eyebrow--light">Ready to Source?</span>
+          <h2>Start your export enquiry today.</h2>
+          <p>We respond to every RFQ within 24 hours with a competitive quotation and full export documentation overview.</p>
+          <div className="home-cta__btns">
+            <button onClick={() => onOpenQuote()} className="home-cta__btn-primary">
+              Get a Quote <ArrowIcon />
+            </button>
+            <Link to="/contact" className="home-cta__btn-secondary">Contact Us</Link>
+          </div>
+        </div>
+      </section>
+
+      <BackToTop />
+
+      <style>{`
+        /* ── Hero ── */
+        .home-hero {
+          position: relative; min-height: 100vh;
+          display: flex; align-items: center;
+          overflow: hidden; padding-top: 80px;
+        }
+        .home-hero__bg-wrap { position: absolute; inset: 0; }
+        .home-hero__bg-img {
+          position: absolute; inset: -20%; background-size: cover;
+          background-position: center 30%; will-change: transform;
+        }
+        .home-hero__bg-grad {
+          position: absolute; inset: 0;
+          background: linear-gradient(105deg,rgba(12,26,18,.92) 0%,rgba(12,26,18,.65) 55%,rgba(12,26,18,.2) 100%);
+        }
+        .home-hero__bg-svg {
+          position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none;
+        }
+        .home-hero__particles { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+
+        .home-hero__inner {
+          position: relative; z-index: 2;
+          display: grid; grid-template-columns: 1fr 1fr;
+          gap: 4rem; align-items: center; padding: 5rem 0;
+        }
+        .home-hero__eyebrow {
+          display: inline-block; font-size: 0.72rem; font-weight: 700;
+          letter-spacing: 0.18em; text-transform: uppercase;
+          color: #e8a20c; border: 1px solid rgba(232,162,12,.4);
+          background: rgba(232,162,12,.12); padding: 5px 14px; border-radius: 999px;
+          margin-bottom: 1.2rem;
+        }
+        .home-hero__title {
+          font-family: var(--font-display, Georgia, serif);
+          font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 800;
+          color: #fff; line-height: 1.12; margin-bottom: 1.2rem;
+        }
+        .home-hero__accent { color: #e8a20c; }
+        .home-hero__sub {
+          color: rgba(255,255,255,.7); font-size: 1.05rem;
+          max-width: 50ch; margin-bottom: 2rem; line-height: 1.7;
+        }
+        .home-hero__ctas { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 2.5rem; }
+        .home-hero__btn-primary {
+          display: inline-flex; align-items: center; gap: 8px;
+          padding: 13px 28px; border-radius: 999px;
+          background: linear-gradient(135deg,#e8a20c,#c8920a);
+          color: #1a1f1b; font-weight: 700; font-size: 0.95rem;
+          border: none; cursor: pointer;
+          box-shadow: 0 8px 24px rgba(200,146,10,.4);
+          transition: transform .25s, box-shadow .25s;
+        }
+        .home-hero__btn-primary:hover { transform: translateY(-3px); box-shadow: 0 14px 35px rgba(200,146,10,.5); }
+        .home-hero__btn-secondary {
+          display: inline-flex; align-items: center; gap: 8px;
+          padding: 13px 28px; border-radius: 999px;
+          border: 1.5px solid rgba(255,255,255,.4); color: #fff;
+          font-weight: 600; font-size: 0.95rem; text-decoration: none;
+          transition: background .2s;
+        }
+        .home-hero__btn-secondary:hover { background: rgba(255,255,255,.1); color: #fff; }
+
+        .home-hero__stats { display: flex; gap: 2rem; flex-wrap: wrap; }
+        .home-hero__stat { }
+        .home-hero__stat strong {
+          display: block; font-family: var(--font-display, Georgia, serif);
+          font-size: 1.9rem; color: #fff; line-height: 1;
+        }
+        .home-hero__stat span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,.55); }
+
+        /* Cards */
+        .home-hero__visual { position: relative; height: 440px; }
+        .home-hero__card {
+          position: absolute; border-radius: 16px; overflow: hidden;
+          border: 1.5px solid rgba(255,255,255,.15);
+          box-shadow: 0 20px 50px rgba(0,0,0,.4);
+        }
+        .home-hero__card-img { width: 100%; height: 100%; background-size: cover; background-position: center; }
+        .home-hero__card-label {
+          position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 12px;
+          display: flex; align-items: center; gap: 8px;
+          background: linear-gradient(0deg,rgba(0,0,0,.75),transparent);
+        }
+        .home-hero__card-label span { font-size: 0.65rem; font-weight: 700; color: #e8a20c; }
+        .home-hero__card-label strong { font-family: var(--font-display, Georgia, serif); font-size: 0.85rem; color: #fff; }
+
+        .home-hero__cert-badge {
+          position: absolute; top: 8%; left: -8%;
+          display: flex; align-items: center; gap: 10px;
+          background: rgba(251,251,247,.96); backdrop-filter: blur(8px);
+          border-radius: 14px; padding: 10px 16px;
+          box-shadow: 0 8px 24px rgba(0,0,0,.2); z-index: 5;
+        }
+        .home-hero__cert-badge strong { display: block; font-size: 0.83rem; color: #1a1f1b; font-weight: 700; }
+        .home-hero__cert-badge span { font-size: 0.72rem; color: #6b7b6e; }
+
+        /* Scroll hint */
+        .home-hero__scroll-hint {
+          position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+          display: flex; flex-direction: column; align-items: center; gap: 6px;
+          z-index: 5; opacity: .7;
+        }
+        .home-hero__scroll-mouse {
+          width: 22px; height: 34px; border: 2px solid rgba(255,255,255,.6);
+          border-radius: 11px; position: relative;
+        }
+        .home-hero__scroll-wheel {
+          width: 4px; height: 8px; background: #e8a20c; border-radius: 2px;
+          position: absolute; top: 6px; left: 50%; transform: translateX(-50%);
+          animation: scrollWheel 1.6s ease infinite;
+        }
+        .home-hero__scroll-hint span {
+          font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,.6);
+        }
+
+        /* ── Highlights ── */
+        .highlights-strip { padding: 3.5rem 0; background: #fff; }
+        .highlights-strip__grid {
+          display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem;
+        }
+        .highlights-strip__item {
+          display: flex; flex-direction: column; align-items: center; text-align: center;
+          gap: 0.5rem; padding: 1.5rem 1rem; border-radius: 14px;
+          background: #fbfbf7; border: 1px solid rgba(46,125,50,.1);
+        }
+        .highlights-strip__icon {
+          width: 48px; height: 48px; border-radius: 50%;
+          display: flex; align-items: center; justify-content: center; margin-bottom: 4px;
+        }
+        .highlights-strip__item strong { font-family: var(--font-display, Georgia, serif); font-size: 0.95rem; color: #1a1f1b; }
+        .highlights-strip__item span { font-size: 0.78rem; color: #6b7b6e; }
+
+        /* ── Products preview ── */
+        .home-products { padding: 5rem 0; background: #f4f6f0; }
+        .home-products__header { text-align: center; margin-bottom: 3rem; }
+        .home-eyebrow {
+          display: inline-block; font-size: 0.72rem; font-weight: 700;
+          letter-spacing: 0.18em; text-transform: uppercase;
+          color: #2d6e47; margin-bottom: 0.75rem;
+        }
+        .home-eyebrow--light { color: rgba(232,162,12,.9); }
+        .home-products__title {
+          font-family: var(--font-display, Georgia, serif);
+          font-size: clamp(1.7rem, 3vw, 2.6rem); color: #1a1f1b;
+        }
+        .home-products__grid {
+          display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem;
+        }
+        .prod-preview-card {
+          background: #fff; border-radius: 16px; overflow: hidden;
+          border: 1px solid rgba(46,125,50,.1);
+          box-shadow: 0 4px 16px rgba(27,94,32,.07);
+          transition: transform .3s, box-shadow .3s;
+        }
+        .prod-preview-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(27,94,32,.14); }
+        .ppc-img { position: relative; height: 180px; overflow: hidden; }
+        .ppc-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s cubic-bezier(.25,.46,.45,.94); }
+        .ppc-tag {
+          position: absolute; top: 10px; left: 10px;
+          background: rgba(45,110,71,.88); color: #fff;
+          font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em;
+          padding: 3px 10px; border-radius: 999px;
+        }
+        .ppc-body { padding: 1.1rem 1.2rem; }
+        .ppc-body h3 {
+          font-family: var(--font-display, Georgia, serif);
+          font-size: 1rem; color: #1a1f1b; margin-bottom: 4px;
+        }
+        .ppc-body p { font-size: 0.75rem; color: #6b7b6e; margin-bottom: 0.9rem; }
+        .ppc-btn {
+          width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px;
+          padding: 10px; background: #2d6e47; color: #fff;
+          font-size: 0.85rem; font-weight: 600; border: none; border-radius: 8px;
+          cursor: pointer; transition: background .2s;
+        }
+        .ppc-btn:hover { background: #235639; }
+
+        .home-products__more { text-align: center; margin-top: 2.5rem; }
+        .home-products__more-btn {
+          display: inline-flex; align-items: center; gap: 8px;
+          padding: 13px 28px; border-radius: 999px;
+          border: 2px solid #2d6e47; color: #2d6e47;
+          font-weight: 600; font-size: 0.92rem; text-decoration: none;
+          transition: background .2s, color .2s;
+        }
+        .home-products__more-btn:hover { background: #2d6e47; color: #fff; }
+
+        /* ── CTA Banner ── */
+        .home-cta {
+          position: relative; padding: 5rem 0; overflow: hidden;
+          background: linear-gradient(120deg,#12231a 0%,#1b3a28 100%);
+        }
+        .home-cta__bg {
+          position: absolute; inset: 0;
+          background-image: url('https://images.unsplash.com/photo-1586201375761-83865001e31c?w=1200&q=50');
+          background-size: cover; opacity: .08;
+        }
+        .home-cta__inner { position: relative; z-index: 2; text-align: center; }
+        .home-cta__inner h2 {
+          font-family: var(--font-display, Georgia, serif);
+          font-size: clamp(1.7rem, 3vw, 2.8rem); color: #fff; margin-bottom: 0.75rem;
+        }
+        .home-cta__inner p { color: rgba(255,255,255,.65); max-width: 50ch; margin: 0 auto 2rem; }
+        .home-cta__btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        .home-cta__btn-primary {
+          display: inline-flex; align-items: center; gap: 8px;
+          padding: 13px 28px; border-radius: 999px;
+          background: linear-gradient(135deg,#e8a20c,#c8920a);
+          color: #1a1f1b; font-weight: 700; font-size: 0.95rem;
+          border: none; cursor: pointer;
+          box-shadow: 0 8px 24px rgba(200,146,10,.4);
+          transition: transform .25s, box-shadow .25s;
+        }
+        .home-cta__btn-primary:hover { transform: translateY(-3px); }
+        .home-cta__btn-secondary {
+          display: inline-flex; align-items: center; gap: 8px;
+          padding: 13px 28px; border-radius: 999px;
+          border: 1.5px solid rgba(255,255,255,.4); color: #fff;
+          font-weight: 600; font-size: 0.95rem; text-decoration: none;
+          transition: background .2s;
+        }
+        .home-cta__btn-secondary:hover { background: rgba(255,255,255,.1); color: #fff; }
+
+        /* ── Responsive ── */
+        @media (max-width: 1050px) {
+          .home-products__grid { grid-template-columns: repeat(2,1fr); }
+        }
+        @media (max-width: 900px) {
+          .home-hero__inner { grid-template-columns: 1fr; }
+          .home-hero__visual { display: none; }
+          .highlights-strip__grid { grid-template-columns: repeat(2,1fr); }
+        }
+        @media (max-width: 560px) {
+          .home-products__grid { grid-template-columns: 1fr; }
+          .highlights-strip__grid { grid-template-columns: 1fr 1fr; }
+        }
+      `}</style>
+    </>
+  )
+}
+
+function ArrowIcon({ cls }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke={cls || 'currentColor'} strokeWidth="2.5"
+      style={{ width: 16, height: 16, flexShrink: 0 }}>
       <path d="M5 12h14M13 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
   )

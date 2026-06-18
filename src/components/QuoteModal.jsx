@@ -1,6 +1,12 @@
 import { useEffect, useState } from 'react'
 
-const PRODUCTS = ['Premium Indian Rice', 'Whole Cashew Kernels', 'Premium Almonds', 'Other / multiple']
+const PRODUCTS = [
+  'Premium Indian Rice',
+  'Whole Cashew Kernels',
+  'Premium Almonds',
+  'Black Pepper',
+  'Other / multiple',
+]
 
 export default function QuoteModal({ presetProduct, onClose }) {
   const [form, setForm] = useState({ name: '', email: '', product: presetProduct || '', message: '' })

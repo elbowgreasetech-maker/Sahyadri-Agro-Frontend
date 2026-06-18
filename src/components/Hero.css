@@ -189,6 +189,14 @@
   animation-delay: 3s;
 }
 
+.hero__card--4 {
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-10%) rotate(-4deg);
+  z-index: 5;
+  animation-delay: 4.5s;
+}
+
 .hero__badge {
   position: absolute;
   bottom: -10px; left: 20px;
