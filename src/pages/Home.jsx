@@ -4,10 +4,10 @@ import BackToTop from '../components/BackToTop'
 
 const PRODUCTS_DATA = [
   { id:'rice',           name:'Premium Indian Rice', tagline:'Basmati & Non-Basmati',      img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80', moq:'1 × 20ft FCL (~25 MT)' },
-  { id:'cashews',        name:'Cashew Nuts',         tagline:'W180, W240, W320',            img:'https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=600&q=80', moq:'1 MT' },
-  { id:'raw-cashew-nut', name:'Raw Cashew Nut',      tagline:'Unprocessed, in-shell',        img:'https://images.unsplash.com/photo-1509912760195-4f6cfd8cce2c?w=600&q=80', moq:'1 × 20ft FCL' },
-  { id:'turmeric',       name:'Turmeric',            tagline:'High-curcumin finger & powder', img:'https://images.unsplash.com/photo-1615485500834-bc10199bc727?w=600&q=80', moq:'1 MT' },
-  { id:'soyabean',       name:'Soyabean',            tagline:'Food & feed-grade',            img:'https://images.unsplash.com/photo-1572457224112-06d191bb6d01?w=600&q=80', moq:'1 × 20ft FCL (~25 MT)' },
+  { id:'cashews',        name:'Cashew Nuts',         tagline:'W180, W240, W320',            img:'https://images.unsplash.com/photo-1509912760195-4f6cfd8cce2c?w=600&q=80', moq:'1 MT' },
+  { id:'raw-cashew-nut', name:'Raw Cashew Nut',      tagline:'Unprocessed, in-shell',        img:'https://www.anvienterprises.net/images/products/raw-cashew-nut.jpg', moq:'1 × 20ft FCL' },
+  { id:'turmeric',       name:'Turmeric',            tagline:'High-curcumin finger & powder', img:'https://images.unsplash.com/photo-1768729340925-2749ecdc211c?w=600&q=80', moq:'1 MT' },
+  { id:'soyabean',       name:'Soyabean',            tagline:'Food & feed-grade',            img:'https://www.anvienterprises.net/images/products/soyabean.jpg', moq:'1 × 20ft FCL (~25 MT)' },
   { id:'black-pepper',   name:'Black Pepper',        tagline:'Malabar & Tellicherry',        img:'https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=600&q=80', moq:'500 kg' },
 ]
 
@@ -196,7 +196,7 @@ export default function Home({ onOpenQuote }) {
           <div className="home-hero__visual" aria-hidden="true">
             {[
               { pos: { width:'60%',height:'62%',top:'2%',right:'0' }, img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80', n:'01', t:'Premium Rice' },
-              { pos: { width:'52%',height:'54%',bottom:'12%',left:'0' }, img:'https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=600&q=80', n:'02', t:'Cashew Nuts' },
+              { pos: { width:'52%',height:'54%',bottom:'12%',left:'0' }, img:'https://images.unsplash.com/photo-1509912760195-4f6cfd8cce2c?w=600&q=80', n:'02', t:'Cashew Nuts' },
               { pos: { width:'42%',height:'38%',bottom:0,right:'6%' }, img:'https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=600&q=80', n:'03', t:'Black Pepper' },
             ].map(({ pos, img, n, t }) => (
               <div key={n} className="h-card home-hero__card" style={pos}>
