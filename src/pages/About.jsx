@@ -54,7 +54,7 @@ export default function About() {
           <div className="flex flex-col gap-5">
             {[
               { target:7,   suffix:'+',  label:'Years of export experience', sub:'Since 2018, shipping to 25+ countries.' },
-              { target:200, suffix:' MT', label:'Monthly processing capacity', sub:'Across rice, cashew, and almond lines.' },
+              { target:200, suffix:' MT', label:'Monthly processing capacity', sub:'Across rice and black pepper lines.' },
               { target:24,  suffix:'hr',  label:'RFQ response time', sub:'From enquiry to detailed quote.' },
               { target:25,  suffix:'+',  label:'Countries served', sub:'Middle East, Europe, Asia, Africa & Americas.' },
             ].map(({ target, suffix, label, sub }, i) => (

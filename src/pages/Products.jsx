@@ -16,10 +16,10 @@ const PRODUCTS = [
   },
   {
     id: 'cashews',
-    name: 'Whole Cashew Kernels',
+    name: 'Cashew Nuts',
     tagline: 'W180, W240, W320 grades',
-    short: 'Plump, ivory-white cashew kernels processed in food-grade facilities and vacuum-packed for export freshness.',
-    long: 'Our cashews are sourced primarily from the Konkan and southern coastal belts, processed under hygienic conditions, and graded as per AFI specifications. Available in whole grades (W180, W240, W320, W450) and broken grades. Vacuum packed in 10 kg / 22.68 kg tins inside cartons for long shelf life.',
+    short: 'Plump, ivory-white processed cashew kernels — food-grade cleaned, graded, and vacuum-packed for export freshness.',
+    long: 'Our cashew kernels are processed under hygienic conditions and graded as per AFI specifications. Available in whole grades (W180, W240, W320, W450) and broken grades. Vacuum packed in 10 kg / 22.68 kg tins inside cartons for long shelf life.',
     varieties: ['W180','W240','W320','W450','Splits & Pieces'],
     packaging: ['10 kg vacuum tin','22.68 kg vacuum tin','Custom retail packs'],
     moq: '1 MT',
@@ -27,15 +27,39 @@ const PRODUCTS = [
     accent: '#c8920a',
   },
   {
-    id: 'almonds',
-    name: 'Premium Almonds',
-    tagline: 'California & Mamra varieties',
-    short: 'Crunchy, naturally sweet almonds — available raw, blanched, or roasted — graded by size and packed for export.',
-    long: 'We supply premium California almonds (Nonpareil, Carmel, Independence) and Indian Mamra almonds. Cleaned, sorted, and metal-detected before packaging. Available raw in shell, shelled whole, blanched, sliced, or roasted on request.',
-    varieties: ['California Nonpareil','Carmel','Independence','Mamra'],
-    packaging: ['10 kg cartons','22.68 kg cartons','Retail-ready pouches'],
-    moq: '500 kg',
-    img: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=900&q=80',
+    id: 'raw-cashew-nut',
+    name: 'Raw Cashew Nut',
+    tagline: 'Unprocessed, in-shell cashew nuts',
+    short: 'Unprocessed raw cashew nuts (RCN) sourced directly from coastal growing belts, sun-dried and moisture-tested for processing and import buyers.',
+    long: 'Sourced directly from farmer networks along the Konkan coast, our raw cashew nuts are sun-dried to export-grade moisture levels and cleaned of foreign matter before bagging. Suited to processors looking to shell and grade in-house.',
+    varieties: ['Standard RCN','Premium out-turn grade'],
+    packaging: ['80 kg jute bags','Bulk container loading'],
+    moq: '1 × 20ft FCL',
+    img: 'https://images.unsplash.com/photo-1509912760195-4f6cfd8cce2c?w=900&q=80',
+    accent: '#2d6e47',
+  },
+  {
+    id: 'turmeric',
+    name: 'Turmeric',
+    tagline: 'High-curcumin finger & powder turmeric',
+    short: 'Vivid, high-curcumin turmeric — available as whole finger/bulb and finely milled powder — meeting international spice export standards.',
+    long: 'Grown and cured in India’s turmeric belts, our turmeric is polished, graded, and lab-tested for curcumin content, moisture, and microbial load. Available as whole finger, bulb, or finely milled powder, packed to preserve color and aroma over long transit.',
+    varieties: ['Whole Finger','Whole Bulb','Turmeric Powder'],
+    packaging: ['25 kg PP bags','50 kg bulk bags','Retail pouches'],
+    moq: '1 MT',
+    img: 'https://images.unsplash.com/photo-1615485500834-bc10199bc727?w=900&q=80',
+    accent: '#c8920a',
+  },
+  {
+    id: 'soyabean',
+    name: 'Soyabean',
+    tagline: 'Food & feed-grade soyabean',
+    short: 'Clean, uniform soyabean sourced from India’s major growing belts, sortex-cleaned and graded for food and feed-grade export.',
+    long: 'Our soyabean is procured from trusted farmer networks, sortex-cleaned to remove foreign matter, and graded for oil content and uniformity. Suitable for crushing, feed, and food-grade applications.',
+    varieties: ['Food-grade','Feed-grade'],
+    packaging: ['50 kg PP bags','Bulk container loading'],
+    moq: '1 × 20ft FCL (~25 MT)',
+    img: 'https://images.unsplash.com/photo-1572457224112-06d191bb6d01?w=900&q=80',
     accent: '#2d6e47',
   },
   {
@@ -139,7 +163,7 @@ export default function Products({ onOpenQuote }) {
         <div className="section-wrap relative" style={{ zIndex: 2 }}>
           <span className="gsap-hero-item eyebrow-badge">Our Catalog</span>
           <h1 className="gsap-hero-item prod-hero__title">
-            Four product lines.<br/>One uncompromising standard.
+            Six product lines.<br/>One uncompromising standard.
           </h1>
           <p className="gsap-hero-item prod-hero__sub">
             Every grain, kernel, and spice we ship is sourced, cleaned, and packed under one roof.

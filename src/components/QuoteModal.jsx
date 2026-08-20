@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react'
 
 const PRODUCTS = [
   { id: 'rice', label: 'Premium Indian Rice' },
-  { id: 'cashews', label: 'Whole Cashew Kernels' },
-  { id: 'almonds', label: 'Premium Almonds' },
+  { id: 'cashews', label: 'Cashew Nuts' },
+  { id: 'raw-cashew-nut', label: 'Raw Cashew Nut' },
+  { id: 'turmeric', label: 'Turmeric' },
+  { id: 'soyabean', label: 'Soyabean' },
   { id: 'black-pepper', label: 'Black Pepper' },
 ]
 

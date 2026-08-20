@@ -3,8 +3,10 @@ import BackToTop from '../components/BackToTop'
 
 const PRODUCTS = [
   'Premium Indian Rice',
-  'Whole Cashew Kernels',
-  'Premium Almonds',
+  'Cashew Nuts',
+  'Raw Cashew Nut',
+  'Turmeric',
+  'Soyabean',
   'Black Pepper',
   'Other / multiple',
 ]

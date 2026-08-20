@@ -24,7 +24,7 @@ export default function Hero({ onOpenQuote }) {
 
         <h1 className="hero__title reveal reveal-2">
   Premium Indian
-  <span className="hero__title-accent"> Rice, Cashews, Almonds </span>
+  <span className="hero__title-accent"> Rice </span>
   &amp;
   <span className="hero__title-accent"> Black Pepper </span>
   Exported Worldwide
@@ -62,27 +62,12 @@ export default function Hero({ onOpenQuote }) {
             </div>
           </div>
           <div className="hero__card hero__card--2">
-            <div className="hero__card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=600&q=80')" }} />
+            <div className="hero__card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=600&q=80')" }} />
             <div className="hero__card-label">
               <span>02</span>
-              <strong>Whole Cashews</strong>
+              <strong>Black Pepper</strong>
             </div>
           </div>
-          <div className="hero__card hero__card--3">
-            <div className="hero__card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1508061253366-f7da158b6d46?w=600&q=80')" }} />
-            <div className="hero__card-label">
-              <span>03</span>
-              <strong>Almonds</strong>
-            </div>
-          </div>
-
-    <div className="hero__card hero__card--3">
-  <div className="hero__card-img" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=600&q=80')" }} />
-  <div className="hero__card-label">
-    <span>04</span>
-    <strong>Black Pepper</strong>
-  </div>
-</div>
 
           <div className="hero__badge">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

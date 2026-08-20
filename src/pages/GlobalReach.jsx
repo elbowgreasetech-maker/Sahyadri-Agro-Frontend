@@ -147,8 +147,8 @@ export default function GlobalReach() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {[
               { port:'Mumbai (JNPT / Nhava Sheva)', note:'Largest container port in India. Direct weekly sailings to Gulf, Europe & SE Asia.' },
-              { port:'Mundra Port, Gujarat',        note:'Fastest customs clearance. Preferred for bulk FCL rice and cashew shipments.' },
-              { port:'Chennai / Kochi Ports',       note:'Ideal for South India cashew and almond origins. Regular feeder vessels.' },
+              { port:'Mundra Port, Gujarat',        note:'Fastest customs clearance. Preferred for bulk FCL rice shipments.' },
+              { port:'Chennai / Kochi Ports',       note:'Ideal for South India cashew, black pepper, and turmeric origins. Regular feeder vessels.' },
             ].map(({ port, note }, i) => (
               <div key={port} data-reveal className={`reveal reveal-scale delay-${i+1} p-5 bg-cream rounded-xl border border-cream-dark`}>
                 <div className="w-8 h-8 rounded bg-forest-600 flex items-center justify-center mb-3">

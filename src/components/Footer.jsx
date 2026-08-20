@@ -9,8 +9,10 @@ const EXPLORE = [
 ]
 const CATALOG = [
   { to: '/products', label: 'Premium Rice' },
-  { to: '/products', label: 'Whole Cashews' },
-  { to: '/products', label: 'Almonds' },
+  { to: '/products', label: 'Cashew Nuts' },
+  { to: '/products', label: 'Raw Cashew Nut' },
+  { to: '/products', label: 'Turmeric' },
+  { to: '/products', label: 'Soyabean' },
   { to: '/products', label: 'Black Pepper' },
   { to: '/contact',  label: 'Private Labelling' },
   { to: '/contact',  label: 'Bulk Orders' },
@@ -27,7 +29,7 @@ export default function Footer() {
               <img src="/logo-nav.png" alt="Sahyadri Agro India" className="h-14 w-auto object-contain brightness-0 invert" />
             </div>
             <p className="text-white/50 text-sm leading-relaxed mb-5 max-w-[260px]">
-              Premium Indian rice, cashews & almonds — exported worldwide with full APEDA & FSSAI compliance.
+              Premium Indian rice, cashews, turmeric, soyabean & black pepper — exported worldwide with full APEDA & FSSAI compliance.
             </p>
             <div className="flex gap-2">
               {[
@@ -73,8 +75,8 @@ export default function Footer() {
             <a href="mailto:vilas.salvi@sahyadri.net" className="block text-white/50 text-sm mb-2 hover:text-gold-400 no-underline transition-colors">vilas.salvi@sahyadri.net</a>
             <Link to="/contact" className="block text-white/50 text-sm mb-2 hover:text-gold-400 no-underline transition-colors">Request a quote</Link>
             <p className="text-white/30 text-xs mt-4 leading-relaxed">
-              A-9, Sai Tukaram Tower, Behind Gurunanak School<br />
-              Rambaug Lane-4, Kalyan West – 421301<br />
+              Block No. 742, At Post Nigundal<br />
+              Taluka Guhagar, Dist. Ratnagiri<br />
               Maharashtra, India
             </p>
           </div>

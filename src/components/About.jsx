@@ -43,7 +43,7 @@ export default function About({ company }) {
               <span className="about__panel-num">200<small>MT</small></span>
               <div>
                 <strong>Monthly processing capacity</strong>
-                <p>Across rice, cashew, and almond lines.</p>
+                <p>Across rice and black pepper lines.</p>
               </div>
             </div>
             <div className="about__panel-row">
