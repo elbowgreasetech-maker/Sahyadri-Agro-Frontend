@@ -47,7 +47,7 @@ const PRODUCTS = [
     varieties: ['Whole Finger','Whole Bulb','Turmeric Powder'],
     packaging: ['25 kg PP bags','50 kg bulk bags','Retail pouches'],
     moq: '1 MT',
-    img: 'https://images.unsplash.com/photo-1768729340925-2749ecdc211c?w=900&q=80',
+    img: '/turmeric.png',
     accent: '#c8920a',
   },
   {

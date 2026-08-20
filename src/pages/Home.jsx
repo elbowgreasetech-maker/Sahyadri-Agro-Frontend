@@ -6,7 +6,7 @@ const PRODUCTS_DATA = [
   { id:'rice',           name:'Premium Indian Rice', tagline:'Basmati & Non-Basmati',      img:'https://images.unsplash.com/photo-1586201375761-83865001e31c?w=600&q=80', moq:'1 × 20ft FCL (~25 MT)' },
   { id:'cashews',        name:'Cashew Nuts',         tagline:'W180, W240, W320',            img:'https://images.unsplash.com/photo-1509912760195-4f6cfd8cce2c?w=600&q=80', moq:'1 MT' },
   { id:'raw-cashew-nut', name:'Raw Cashew Nut',      tagline:'Unprocessed, in-shell',        img:'https://www.anvienterprises.net/images/products/raw-cashew-nut.jpg', moq:'1 × 20ft FCL' },
-  { id:'turmeric',       name:'Turmeric',            tagline:'High-curcumin finger & powder', img:'https://images.unsplash.com/photo-1768729340925-2749ecdc211c?w=600&q=80', moq:'1 MT' },
+  { id:'turmeric',       name:'Turmeric',            tagline:'High-curcumin finger & powder', img:'/turmeric.png', moq:'1 MT' },
   { id:'soyabean',       name:'Soyabean',            tagline:'Food & feed-grade',            img:'https://www.anvienterprises.net/images/products/soyabean.jpg', moq:'1 × 20ft FCL (~25 MT)' },
   { id:'black-pepper',   name:'Black Pepper',        tagline:'Malabar & Tellicherry',        img:'https://images.unsplash.com/photo-1615485500704-8e990f9900f7?w=600&q=80', moq:'500 kg' },
 ]
