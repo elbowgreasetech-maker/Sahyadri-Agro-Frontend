@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 
 const PRODUCTS = [
-  'Premium Indian Rice',
-  'Whole Cashew Kernels',
-  'Premium Almonds',
-  'Black Pepper',
-  'Other / multiple',
+  { id: 'rice', label: 'Premium Indian Rice' },
+  { id: 'cashews', label: 'Whole Cashew Kernels' },
+  { id: 'almonds', label: 'Premium Almonds' },
+  { id: 'black-pepper', label: 'Black Pepper' },
 ]
 
 export default function QuoteModal({ presetProduct, onClose }) {
-  const [form, setForm] = useState({ name: '', email: '', product: presetProduct || '', message: '' })
-  const [sent, setSent] = useState(false)
+  const [form, setForm] = useState({ name: '', email: '', productId: presetProduct || '', country: '', quantity: '', message: '' })
+  const [status, setStatus] = useState('idle') // idle | sending | error
+  const sent = status === 'sent'
 
   useEffect(() => {
     document.body.style.overflow = 'hidden'
@@ -27,7 +27,26 @@ export default function QuoteModal({ presetProduct, onClose }) {
 
   async function submit(e) {
     e.preventDefault()
-    setSent(true)
+    setStatus('sending')
+    try {
+      const res = await fetch('/api/quote', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          productId: form.productId,
+          country: form.country,
+          quantity: form.quantity,
+          notes: form.message,
+        }),
+      })
+      const data = await res.json()
+      if (!res.ok || !data.ok) { setStatus('error'); return }
+      setStatus('sent')
+    } catch {
+      setStatus('error')
+    }
   }
 
   return (
@@ -65,22 +84,33 @@ export default function QuoteModal({ presetProduct, onClose }) {
               <Field label="Email address" type="email" value={form.email} onChange={set('email')} placeholder="jane@company.com" required />
               <div className="flex flex-col gap-1">
                 <label className="text-xs font-medium text-ink-mid">Product</label>
-                <select value={form.product} onChange={set('product')} className="bg-cream border border-cream-dark rounded-lg px-3 py-2 text-sm text-ink focus:outline-none focus:border-forest-500">
+                <select value={form.productId} onChange={set('productId')} required className="bg-cream border border-cream-dark rounded-lg px-3 py-2 text-sm text-ink focus:outline-none focus:border-forest-500">
                   <option value="">Choose…</option>
-                  {PRODUCTS.map((p) => <option key={p}>{p}</option>)}
+                  {PRODUCTS.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
                 </select>
               </div>
+              <div className="grid grid-cols-2 gap-3">
+                <Field label="Destination country" type="text" value={form.country} onChange={set('country')} placeholder="UAE" required />
+                <Field label="Quantity" type="text" value={form.quantity} onChange={set('quantity')} placeholder="2 × 20ft FCL" required />
+              </div>
               <div className="flex flex-col gap-1">
-                <label className="text-xs font-medium text-ink-mid">Destination & quantity</label>
+                <label className="text-xs font-medium text-ink-mid">Additional notes</label>
                 <textarea
                   value={form.message} onChange={set('message')} rows={3}
-                  placeholder="e.g. Port of Dubai, 2 × 20ft FCL, monthly…"
+                  placeholder="Destination port, packaging, timelines…"
                   className="bg-cream border border-cream-dark rounded-lg px-3 py-2 text-sm text-ink focus:outline-none focus:border-forest-500 resize-none"
                 />
               </div>
-              <button type="submit" className="w-full py-3 bg-forest-600 text-white font-medium rounded-lg hover:bg-forest-500 transition-colors flex items-center justify-center gap-2">
-                Submit Request
-                <svg viewBox="0 0 24 24" className="w-4 h-4 stroke-white fill-none stroke-2"><path d="M5 12h14M13 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              {status === 'error' && (
+                <div className="text-sm text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-2">
+                  Something went wrong — please try again or email us directly.
+                </div>
+              )}
+              <button type="submit" disabled={status === 'sending'} className="w-full py-3 bg-forest-600 text-white font-medium rounded-lg hover:bg-forest-500 transition-colors flex items-center justify-center gap-2 disabled:opacity-70">
+                {status === 'sending' ? 'Sending…' : 'Submit Request'}
+                {status !== 'sending' && (
+                  <svg viewBox="0 0 24 24" className="w-4 h-4 stroke-white fill-none stroke-2"><path d="M5 12h14M13 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                )}
               </button>
             </form>
           </>

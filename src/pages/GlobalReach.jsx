@@ -48,7 +48,13 @@ export default function GlobalReach() {
 
   return (
     <>
-      <div className="relative pt-32 pb-16 bg-forest-600">
+      <div className="relative pt-32 pb-16 bg-forest-600 overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center opacity-25"
+          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=60')" }}
+          aria-hidden="true"
+        />
+        <div className="absolute inset-0" style={{ background: 'linear-gradient(120deg, rgba(26,74,46,.95) 0%, rgba(26,74,46,.75) 60%, rgba(26,74,46,.4) 100%)' }} aria-hidden="true" />
         <div className="section-wrap relative">
           <span className="eyebrow text-gold-400 border border-gold-400/40 bg-gold-400/10">Global Reach</span>
           <h1 className="font-serif text-white" style={{ fontSize:'clamp(2rem,4vw,3.2rem)' }}>Serving clients across the<br/><em className="text-gold-400">Middle East, Europe & Asia</em></h1>

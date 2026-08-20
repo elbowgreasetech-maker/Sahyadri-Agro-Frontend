@@ -33,7 +33,7 @@ export default function Navbar({ onOpenQuote }) {
           <img
             src="/logo-nav.png"
             alt="Sahyadri Agro India Logo"
-            className={`h-12 w-auto object-contain transition-all duration-300 ${scrolled ? 'brightness-100' : 'brightness-0 invert'}`}
+            className="h-12 w-auto object-contain transition-all duration-300"
           />
         </Link>
 
